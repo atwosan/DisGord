@@ -6,7 +6,7 @@ import (
   "syscall"
   "strings"
   "github.com/bwmarrin/discordgo"
-  "github.com/atwosan/disgord/lib"
+  "github.com/atwosan/DisGord/lib"
 )
 
 const(
