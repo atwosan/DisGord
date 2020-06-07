@@ -10,7 +10,7 @@ import (
 )
 
 const(
-  TOKEN = "NjUxMDE4MTM5ODY5MzgwNjE4.XtncTw.Tl_N5i9BIFOzw5Q_cw4r5XFAjhc"
+  TOKEN = ""
 )
 var db = lib.SetupDB()
 
