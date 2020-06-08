@@ -6,7 +6,7 @@ import (
   "syscall"
   "strings"
   "github.com/bwmarrin/discordgo"
-  "github.com/atwosan/DisGord/lib"
+  "./lib"
 )
 
 const(
@@ -22,7 +22,7 @@ func main() {
   }
 
   dg.AddHandler(messageCreate)
-
+  dg.AddHandler(messageDelete)
   err = dg.Open()
   if err != nil {
     log.Println("error:wss\n", err)
@@ -58,12 +58,12 @@ func messageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
       s.ChannelMessageSend(m.ChannelID, "[" + _name[1] + "]" + "と言った時に[" + _name[2] + "]と返って来るようにしました")
   } else if strings.Contains(m.Content, "削除:") {
       _name := strings.SplitN(m.Content, ":", 2)
-      if !stringInMap(m.Content, db.Msgs) {
-        s.ChannelMessageSend(m.ChannelID, "[" + _name[1] + "]という言葉は登録されていません")
-        return
+      if stringInMap(_name[1], db.Msgs) {
+          db.Delete_msg(_name[1])
+          s.ChannelMessageSend(m.ChannelID, "[" + _name[1] + "]" + "と言った時に何も返ってこないようにしました")
+      } else {
+	  s.ChannelMessageSend(m.ChannelID, "[" + _name[1] + "]という言葉は登録さ>れていません")
       }
-      db.Delete_msg(_name[1])
-      s.ChannelMessageSend(m.ChannelID, "[" + _name[1] + "]" + "と言った時に何も返ってこないようにしました")
   } else if strings.Contains(m.Content, "oji:") {
       _name := strings.SplitN(m.Content, ":", 2)
       oji,_ := lib.Ojichat(_name[1])
@@ -71,4 +71,8 @@ func messageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
   } else if stringInMap(m.Content, db.Msgs) {
       s.ChannelMessageSend(m.ChannelID, db.Msgs[m.Content])
   }
+}
+
+func messageDelete(s *discordgo.Session, m *discordgo.MessageDelete) {
+    s.ChannelMessageSend(m.ChannelID, "誰かがメッセージを取り消しました！")
 }
