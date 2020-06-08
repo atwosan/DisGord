@@ -68,6 +68,11 @@ func messageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
       _name := strings.SplitN(m.Content, ":", 2)
       oji,_ := lib.Ojichat(_name[1])
       s.ChannelMessageSend(m.ChannelID, oji)
+  } else if m.Content == "realface" {
+      lib.Realface("disgord.jpeg")
+      i, _ := os.Open("disgord.jpeg")
+      s.ChannelFileSend(m.ChannelID, "disgord.jpeg", i)
+
   } else if stringInMap(m.Content, db.Msgs) {
       s.ChannelMessageSend(m.ChannelID, db.Msgs[m.Content])
   }
