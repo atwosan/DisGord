@@ -1,3 +1,3 @@
 # DisGord
 
-import用なので何も触れないでください
+DiscordBot for Golang
