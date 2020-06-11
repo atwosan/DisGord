@@ -16,8 +16,11 @@ var (
 	db = lib.SetupDB()
 )
 
+
+//データベースの状態を確認
 func gin_start() {
 	router := gin.Default()
+	router.Static("./js", "./js")
 	router.LoadHTMLGlob("templates/*.html")
 	router.GET("/", func(ctx *gin.Context) {
 		data := get_format_data()

@@ -34,7 +34,7 @@ func (db Database) Delete_msg(come string) {
 func SetupDB() Database {
 	db, err := sql.Open("sqlite3", "./messages.db")
 	if err != nil {
-		panic(err)
+		log.Fatal(err)
 	}
 	var msg []Msg
 	rows, _ := db.Query("select * from msg")
