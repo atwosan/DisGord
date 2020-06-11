@@ -1,7 +1,6 @@
-var counter = function(str,seq){
-  return str.split(seq).length;
+var texts = d.split("\n")
+var text = ""
+for (let i = 0; i < texts.length; i++) {
+  text += "<p>" + texts[i] + "</p>" 
 }
-for (let step = 0; step < counter(d, "\n"); step++) {
-  d = d.replace("\n", "<br>");
-}
-document.write(d);
+document.write(text);
