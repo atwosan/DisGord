@@ -3,7 +3,6 @@ package main
 import (
 	"./lib"
 	"github.com/bwmarrin/discordgo"
-	"github.com/gin-gonic/gin"
 	"log"
 	"os"
 	"os/signal"
@@ -17,19 +16,6 @@ var (
 )
 
 
-//データベースの状態を確認
-func gin_start() {
-	router := gin.Default()
-	router.Static("./js", "./js")
-	router.LoadHTMLGlob("templates/*.html")
-	router.GET("/", func(ctx *gin.Context) {
-		data := get_format_data()
-		ctx.HTML(200, "index.html", gin.H{"data": data})
-	})
-
-	router.Run()
-}
-
 func get_format_data() string {
 	list := ""
 	for key, value := range db.Msgs {
@@ -39,7 +25,6 @@ func get_format_data() string {
 }
 
 func main() {
-	go gin_start()
 	dg, err := discordgo.New("Bot " + TOKEN)
 	if err != nil {
 		log.Fatal("error:start\n", err)
