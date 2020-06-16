@@ -31,7 +31,7 @@ func Realface(savename string) {
 	if err != nil {
 		log.Println(err)
 	}
-	dst, err = os.Create(savename)
+	dst, err = os.Create("./img/" + savename)
 	if err != nil {
 		log.Println(err)
 	}
