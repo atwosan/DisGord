@@ -15,14 +15,14 @@ var (
 	TOKEN  = os.Getenv("TOKEN")
 	db, ng = lib.SetupDB()
 	help = `help Message
-[data] 登録:
-[data] 削除:
-[data] 登録一覧
-[data] データベース更新
-[NgWord] ngadd:
-[NgWord] ngdel:
-[other] realface
-[other] oji:
+登録:  メッセージを登録します
+削除:  登録メッセージから削除します
+登録一覧  登録メッセージ一覧を表示します
+restart_db  データベースを再読込します
+ngadd:  NGワードに追加します
+ngdel:  NGワードから削除します
+realface  AIが生成した三次元の顔を送ります
+oji:  おじさん
 	`
 )
 
@@ -81,7 +81,7 @@ func messageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 		s.ChannelMessageSend(m.ChannelID, list)
 		return
 
-	case "データベース更新":
+	case "restart_db":
 		db, ng = lib.SetupDB()
 		s.ChannelMessageSend(m.ChannelID, "更新しました")
 		return
